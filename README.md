@@ -1,8 +1,6 @@
-[![Docker Repository on Quay.io](https://quay.io/repository/mh4nx7net/wowza-perpetual/status "Docker Repository on Quay.io")](https://quay.io/repository/mh4nx7net/wowza-perpetual)
-
 > **NOTICE**:
 >
-> by this version. dont update to 4.8.0.
+> by this version. dont update more than 4.8.0.
 
 # mh4nx7net/wowza-perpetual:4.8.0
 
