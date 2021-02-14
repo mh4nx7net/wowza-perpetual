@@ -72,8 +72,8 @@ Point your browser to http://localhost:8088 and login using the default username
 
 Refer to the wowza [quickstart guide](http://www.wowza.com/forums/content.php?3-quick-start-guide) to get started with Wowza.
 
-
 [Wowza - Letencrypt configuration](https://github.com/nlmaca/Wowza_Installers/blob/master/Ubuntu/Ubuntu_20.04_Letsencrypt.md)
+
 [Wowza-4.8.0 - Linux Downloads](https://www.wowza.com/downloads/WowzaStreamingEngine-4-8-5/WowzaStreamingEngine-4.8.5-linux-x64-installer.run)
 
 
