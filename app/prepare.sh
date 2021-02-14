@@ -9,12 +9,15 @@ cd /app
 # download wowza installer
 wget "${WOWZA_INSTALLER_URL}" -O "${WOWZA_INSTALLER_FILE}"
 chmod +x "${WOWZA_INSTALLER_FILE}"
+#echo "export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")" >> /etc/profile.d/jdk11.sh
 
-# move supervisord.log file to ${WOWZA_LOG_DIR}/supervisor/
-sed 's|^logfile=.*|logfile='"${WOWZA_LOG_DIR}"'/supervisor/supervisord.log ;|' -i /etc/supervisor/supervisord.conf
 
-# configure supervisord to start wowza streaming engine
-cat > /etc/supervisor/conf.d/wowza.conf <<EOF
+supervisor_initialize(){
+	# move supervisord.log file to ${WOWZA_LOG_DIR}/supervisor/
+	sed 's|^logfile=.*|logfile='"${WOWZA_LOG_DIR}"'/supervisor/supervisord.log ;|' -i /etc/supervisor/supervisord.conf
+
+	# configure supervisord to start wowza streaming engine
+	cat > /etc/supervisor/conf.d/wowza.conf <<EOF
 [program:wowza]
 priority=10
 directory=/usr/local/WowzaStreamingEngine/bin
@@ -38,3 +41,6 @@ autorestart=true
 stdout_logfile=${WOWZA_LOG_DIR}/supervisor/%(program_name)s.log
 stderr_logfile=${WOWZA_LOG_DIR}/supervisor/%(program_name)s.log
 EOF
+}
+
+supervisor_initialize

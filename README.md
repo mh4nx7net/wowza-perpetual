@@ -1,10 +1,13 @@
-[![Docker Repository on Quay.io](https://quay.io/repository/sameersbn/wowza/status "Docker Repository on Quay.io")](https://quay.io/repository/sameersbn/wowza)
+[![Docker Repository on Quay.io](https://quay.io/repository/mh4nx7net/wowza-perpetual/status "Docker Repository on Quay.io")](https://quay.io/repository/mh4nx7net/wowza-perpetual)
 
 > **NOTICE**:
 >
-> Due to changes in the WOWZA installer, `4.3.x` and later versions are installed during container startup.
+> by this version. dont update to 4.8.0.
 
-# sameersbn/wowza:4.1.2-8
+#https://github.com/nlmaca/Wowza_Installers/blob/master/Ubuntu/Ubuntu_20.04_Letsencrypt.md
+#https://www.wowza.com/downloads/WowzaStreamingEngine-4-8-5/WowzaStreamingEngine-4.8.5-linux-x64-installer.run
+
+# mh4nx7net/wowza-perpetual:4.8.0
 
 - [Introduction](#introduction)
   - [Contributing](#contributing)
@@ -31,11 +34,8 @@ Wowza Streaming Engine is unified streaming media server software developed by W
 
 ## Contributing
 
-If you find this image useful here's how you can help:
-
-- Send a pull request with your awesome features and bug fixes
-- Help users resolve their [issues](../../issues?q=is%3Aopen+is%3Aissue).
-- Support the development of this image with a [donation](http://www.damagehead.com/donate/)
+inspired by sameersbn/wowza
+then i'am sory. my fork and custumize is just for private project. so clone if you want
 
 ## Issues
 
@@ -53,46 +53,37 @@ If the above recommendations do not help then [report your issue](../../issues/n
 
 ## Installation
 
-Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/sameersbn/wowza) and is the recommended method of installation.
+Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/mh4nx7net/wowza-perpetual) and is the recommended method of installation.
 
-> **Note**: Builds are also available on [Quay.io](https://quay.io/repository/sameersbn/wowza)
+> **Note**: Builds are also available on [Quay.io](https://quay.io/repository/mh4nx7net/wowza-perpetual)
 
 ```bash
-docker pull sameersbn/wowza:4.1.2-8
+docker pull mh4nx7net/wowza-perpetual:4.8.0
+docker run --name wowza -d --restart=always\
+	--publish 1935:1935 --publish 8086:8086 \
+	--publish 8087:8087 --publish 8088:8088 \
+	--volume /srv/docker/wowza/data:/var/lib/wowza \
+	--volume /srv/docker/wowza/log:/var/log/wowza \
+	mh4nx7net/wowza-perpetual:4.8.0
 ```
 
 Alternatively you can build the image yourself.
 
 ```bash
-docker build -t sameersbn/wowza github.com/sameersbn/docker-wowza
+git clone https://github.com/mh4nx7net/wowza-perpetual.git
+cd wowza-perpetual
+make build
+make up
 ```
 
-## Quickstart
+## Configuration
 
-Before you can start using this image you need to acquire a valid license from Wowza Media Systems for the Wowza Streaming Engine software. If you do not have one, you can [request a free trial license](http://www.wowza.com/pricing/trial) or purchase a license from Wowza Media Systems.
-
-Start Wowza using:
-
-```bash
-docker run --name wowza -d --restart=always \
-  --publish 1935:1935 --publish 8086:8086 \
-  --publish 8087:8087 --publish 8088:8088 \
-  --env 'WOWZA_ACCEPT_LICENSE=yes' \
-  --env 'WOWZA_KEY=xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx' \
-  --volume /srv/docker/wowza/data:/var/lib/wowza \
-  --volume /srv/docker/wowza/log:/var/log/wowza \
-  sameersbn/wowza:4.1.2-8
-```
-
-**The `--env WOWZA_ACCEPT_LICENSE=yes` parameter in the above command indicates that you agree to the Wowza EULA.**
-
-*Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
+Start with your own login page configuration:
+* WO_USER: `admin`
+* WO_PASS: `admin`
+* WO_LICENSE: `ET1A4-KxrGd-Eaj9T-dTbcf-rZNza-9xaJd`
 
 Point your browser to http://localhost:8088 and login using the default username and password:
-
-* username: `admin`
-* password: `admin`
-
 Refer to the wowza [quickstart guide](http://www.wowza.com/forums/content.php?3-quick-start-guide) to get started with Wowza.
 
 ## Persistence
@@ -117,47 +108,16 @@ The Wowza logs are populated in `/var/log/wowza`. You can mount a volume at this
 Alternatively you can also use `docker exec` to tail the logs. For example,
 
 ```bash
-docker exec -it wowza tail -f /var/log/wowza/wowza/wowzastreamingengine_access.log
+tail -f /srv/docker/wowza/log/wowza/wowzastreamingengine_access.log
 ```
 
 # Maintenance
-
-## Upgrading
-
-To upgrade to newer releases:
-
-  1. Download the updated Docker image:
-
-  ```bash
-  docker pull sameersbn/wowza:4.1.2-8
-  ```
-
-  2. Stop the currently running image:
-
-  ```bash
-  docker stop wowza
-  ```
-
-  3. Remove the stopped container
-
-  ```bash
-  docker rm -v wowza
-  ```
-
-  4. Start the updated image
-
-  ```bash
-  docker run -name wowza -d \
-    [OPTIONS] \
-    sameersbn/wowza:4.1.2-8
-  ```
-
 ## Shell Access
 
 For debugging and maintenance purposes you may want access the containers shell. If you are using Docker version `1.3.0` or higher you can access a running containers shell by starting `bash` using `docker exec`:
 
 ```bash
-docker exec -it wowza bash
+docker exec -it wowza_service bash
 ```
 
 # References

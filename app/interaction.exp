@@ -23,7 +23,7 @@ expect -gl "*Confirm Password*"
 send -- "$WO_PASS\r"
 
 expect -gl "*Start Wowza Streaming Engine automatically*"
-send -- "y\r"
+send -- "n\r"
 
 expect -gl "*Do you want to continue*"
 send -- "y\r"
