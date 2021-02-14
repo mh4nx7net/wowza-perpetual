@@ -1,0 +1,32 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+source /app/settings.h
+spawn /app/WowzaStreamingEngine.run
+
+expect {
+	-gl "*Press *Enter* to continue*" { send -- "\r"; exp_continue }
+	-gl "*Do you accept this agreement*"
+}
+send -- "\ry\r"
+
+expect "License Key:*"
+send -- "$WO_LICENSE\r"
+
+expect -gl "*User Name*"
+send -- "$WO_USER\r"
+
+expect -gl "*Password*"
+send -- "$WO_PASS\r"
+
+expect -gl "*Confirm Password*"
+send -- "$WO_PASS\r"
+
+expect -gl "*Start Wowza Streaming Engine automatically*"
+send -- "y\r"
+
+expect -gl "*Do you want to continue*"
+send -- "y\r"
+
+expect eof
+
