@@ -4,9 +4,6 @@
 >
 > by this version. dont update to 4.8.0.
 
-#https://github.com/nlmaca/Wowza_Installers/blob/master/Ubuntu/Ubuntu_20.04_Letsencrypt.md
-#https://www.wowza.com/downloads/WowzaStreamingEngine-4-8-5/WowzaStreamingEngine-4.8.5-linux-x64-installer.run
-
 # mh4nx7net/wowza-perpetual:4.8.0
 
 - [Introduction](#introduction)
@@ -35,19 +32,9 @@ Wowza Streaming Engine is unified streaming media server software developed by W
 ## Contributing
 
 inspired by sameersbn/wowza
-then i'am sory. my fork and custumize is just for private project. so clone if you want
+then i'am sory. my fork and custumize is just for private project.
+So clone me if you want
 
-## Issues
-
-Before reporting your issue please try updating Docker to the latest version and check if it resolves the issue. Refer to the Docker [installation guide](https://docs.docker.com/installation) for instructions.
-
-SELinux users should try disabling SELinux using the command `setenforce 0` to see if it resolves the issue.
-
-If the above recommendations do not help then [report your issue](../../issues/new) along with the following information:
-
-- Output of the `docker version` and `docker info` commands
-- The `docker run` command or `docker-compose.yml` used to start the image. Mask out the sensitive bits.
-- Please state if you are using [Boot2Docker](http://www.boot2docker.io), [VirtualBox](https://www.virtualbox.org), etc.
 
 # Getting started
 
@@ -84,22 +71,13 @@ Start with your own login page configuration:
 * WO_LICENSE: `ET1A4-KxrGd-Eaj9T-dTbcf-rZNza-9xaJd`
 
 Point your browser to http://localhost:8088 and login using the default username and password:
+
 Refer to the wowza [quickstart guide](http://www.wowza.com/forums/content.php?3-quick-start-guide) to get started with Wowza.
 
-## Persistence
 
-For Wowza to preserve its state across container shutdown and startup you should mount a volume at `/var/lib/wowza`.
+[Wowza - Letencrypt configuration](https://github.com/nlmaca/Wowza_Installers/blob/master/Ubuntu/Ubuntu_20.04_Letsencrypt.md)
+[Wowza-4.8.0 - Linux Downloads](https://www.wowza.com/downloads/WowzaStreamingEngine-4-8-5/WowzaStreamingEngine-4.8.5-linux-x64-installer.run)
 
-> *The [Quickstart](#quickstart) command already mounts a volume for persistence.*
-
-SELinux users should update the security context of the host mountpoint so that it plays nicely with Docker:
-
-```bash
-mkdir -p /srv/docker/wowza
-chcon -Rt svirt_sandbox_file_t /srv/docker/wowza
-```
-
-At first run the Wowza configuration files, among other things, will be copied into this location. You can manually edit these configurations if required.
 
 ## Logs
 
